@@ -219,3 +219,10 @@ __marimo__/
 
 # 抓取的资源
 */小说/*
+*/pictures/*
+*/videos/*
+*/图片/*
+*.mp3
+*.mp4
+*.avi
+*.mkv

@@ -40,6 +40,7 @@ def dl_chapter(url):
             # exit()
             return
 
+    # 处理超时
     except httpx.ReadTimeout:
         print(f"【dl_chapter】{url} : 请求超时")
         # exit()
@@ -95,15 +96,22 @@ def dl_list():
     global headers
     global url
 
-    print("---开始抓取---")
-    res = httpx.get(url=url, headers=headers)
+    try:
+        print("---开始抓取---")
+        res = httpx.get(url=url, headers=headers)
 
-    # 检查请求是否成功
-    if res.status_code == 200:
-        print("【dl_list】页面获取成功！")
-    else:
-        print(f"【dl_list】请求失败，状态码：{res.status_code}")
-        exit()
+        # 检查请求是否成功
+        if res.status_code == 200:
+            print("【dl_list】页面获取成功！")
+        else:
+            print(f"【dl_list】请求失败，状态码：{res.status_code}")
+            exit()
+
+    # 处理超时
+    except httpx.ReadTimeout:
+        print(f"【dl_list】{url} : 请求超时")
+        # exit()
+        return
 
     # 2. 用 parsel 解析 HTML 内容
     sel = parsel.Selector(res.text)
